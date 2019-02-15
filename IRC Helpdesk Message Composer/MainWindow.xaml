@@ -1,0 +1,94 @@
+﻿<Window x:Class="IRC_Helpdesk_Message_Composer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IRC_Helpdesk_Message_Composer"
+        mc:Ignorable="d"
+        Title="IRC HelpDesk Composer" Height="300" Width="500"
+        SizeToContent="Height">
+    <Window.Resources>
+        <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Background" Value="LightBlue"/>
+        </Style>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel >
+            <TextBlock>Main Category</TextBlock>
+            <ComboBox x:Name="MainCatElement"
+                ItemsSource="{Binding MainCategories}"
+                      SelectedItem="{Binding MainCategory}"
+                      Style="{StaticResource ComboBoxStyle}"></ComboBox>
+            <TextBlock>Secondary Category</TextBlock>
+            <ComboBox x:Name="SecCatElement"
+                SelectedItem="{Binding SubCategory}"
+                      Style="{StaticResource ComboBoxStyle}">
+                <ComboBox.ItemsSource>
+                    <MultiBinding Converter="{x:Static local:SecondaryCategoryMultiConverter.Instance}">
+                        <Binding ElementName="MainCatElement" Path="SelectedItem"/>
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=Window}" Path="DataContext.SecondaryCategories"/>
+                    </MultiBinding>
+                </ComboBox.ItemsSource>
+            </ComboBox>
+            <TextBlock>Details</TextBlock>
+            <ComboBox SelectedItem="{Binding Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxStyle}"
+                      >
+                <ComboBox.ItemsSource>
+                    <MultiBinding Converter="{x:Static local:DetailsMultiConverter.Instance}">
+                        <Binding ElementName="MainCatElement" Path="SelectedItem"/>
+                        <Binding ElementName="SecCatElement" Path="SelectedItem"/>
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=Window}" Path="DataContext.SecondaryCategories"/>
+                    </MultiBinding>
+                </ComboBox.ItemsSource>
+
+            </ComboBox>
+            
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="10">
+            <Image Source="/Images/IRC Logo.png"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Width="100"/>
+            <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
+            write an email manually through button below.</TextBlock>
+            <TextBlock>
+                <Run Foreground="#ffbf00"
+                     FontStyle="Italic"
+                     FontWeight="Bold">Developed By:</Run>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center">
+                <Run Foreground="#ffbf00"
+                     FontStyle="Italic"
+                     FontWeight="Bold">Mohammed Ehsan - IT Officer</Run>
+            </TextBlock>
+            
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Button Content="Create Email" 
+                VerticalAlignment="Top" 
+                Width="100"
+                Padding="5"
+                Click="Button_Click"
+                HorizontalAlignment="Center"
+                    Style="{StaticResource ButtonStyle}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Grid.Column="1">
+            <Button Style="{StaticResource ButtonStyle}"
+                    Click="Button_Click_1">Help</Button>
+        </Grid>
+    </Grid>
+</Window>
