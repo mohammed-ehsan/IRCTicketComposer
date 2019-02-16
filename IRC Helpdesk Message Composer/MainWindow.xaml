@@ -34,27 +34,14 @@
                       Style="{StaticResource ComboBoxStyle}"></ComboBox>
             <TextBlock>Secondary Category</TextBlock>
             <ComboBox x:Name="SecCatElement"
-                SelectedItem="{Binding SubCategory}"
-                      Style="{StaticResource ComboBoxStyle}">
-                <ComboBox.ItemsSource>
-                    <MultiBinding Converter="{x:Static local:SecondaryCategoryMultiConverter.Instance}">
-                        <Binding ElementName="MainCatElement" Path="SelectedItem"/>
-                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=Window}" Path="DataContext.SecondaryCategories"/>
-                    </MultiBinding>
-                </ComboBox.ItemsSource>
+                SelectedItem="{Binding SecondaryCategory}"
+                      Style="{StaticResource ComboBoxStyle}"
+                      ItemsSource="{Binding SecondaryCategories}">
             </ComboBox>
             <TextBlock>Details</TextBlock>
             <ComboBox SelectedItem="{Binding Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource ComboBoxStyle}"
-                      >
-                <ComboBox.ItemsSource>
-                    <MultiBinding Converter="{x:Static local:DetailsMultiConverter.Instance}">
-                        <Binding ElementName="MainCatElement" Path="SelectedItem"/>
-                        <Binding ElementName="SecCatElement" Path="SelectedItem"/>
-                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=Window}" Path="DataContext.SecondaryCategories"/>
-                    </MultiBinding>
-                </ComboBox.ItemsSource>
-
+                      ItemsSource="{Binding DetailsList}">
             </ComboBox>
             
         </StackPanel>
@@ -64,15 +51,15 @@
                    Width="100"/>
             <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
             write an email manually through button below.</TextBlock>
-            <TextBlock>
+            <!--<TextBlock>
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
                      FontWeight="Bold">Developed By:</Run>
-            </TextBlock>
+            </TextBlock>-->
             <TextBlock HorizontalAlignment="Center">
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
-                     FontWeight="Bold">Mohammed Ehsan - IT Officer</Run>
+                     FontWeight="Bold">IRC IT Team</Run>
             </TextBlock>
             
         </StackPanel>
@@ -81,14 +68,14 @@
                 VerticalAlignment="Top" 
                 Width="100"
                 Padding="5"
-                Click="Button_Click"
                 HorizontalAlignment="Center"
-                    Style="{StaticResource ButtonStyle}"/>
+                Style="{StaticResource ButtonStyle}"
+                    Command="{Binding ComposeTicketCommand}"/>
         </Grid>
         <Grid Grid.Row="1"
               Grid.Column="1">
             <Button Style="{StaticResource ButtonStyle}"
-                    Click="Button_Click_1">Help</Button>
+                    Command="{Binding NewHelpdeskMailCommand}">Help</Button>
         </Grid>
     </Grid>
 </Window>

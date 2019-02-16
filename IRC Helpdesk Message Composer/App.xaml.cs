@@ -5,6 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using IRC.Helpdesk.Core;
+using IRC.Helpdesk.ViewModels;
+using ME.Wpf.Mvvm;
 
 namespace IRC_Helpdesk_Message_Composer
 {
@@ -13,5 +16,28 @@ namespace IRC_Helpdesk_Message_Composer
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            //Register dialog service singlton
+            var dialogService = new Dialog(null);
+            dialogService.Register<MainWindowViewModel, MainWindow>();
+            dialogService.Register<MessageDialogViewModel, MessageDialog>();
+            DI.AddSinglton<IDialogService>(dialogService);
+
+            //Register Categories Provider as singlton
+            ICategoriesProvider catsProvider = new CategoriesProvider();
+            DI.AddSinglton<ICategoriesProvider>(catsProvider);
+
+            //Register mail service as scoped
+            DI.AddService<IMailService, OutlookMailService>();
+
+            DI.AddTransient(typeof(MainWindowViewModel));
+
+            DI.Construct();
+
+            DI.GetService<IDialogService>().ShowWindow<MainWindowViewModel>(DI.GetService<MainWindowViewModel>(), true);
+        }
     }
 }

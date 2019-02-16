@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRC.Helpdesk.Core\IRC.Helpdesk.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ME.Wpf.Mvvm">
+      <HintPath>..\..\..\..\Documents\Projects\installmentsalessystem\Sales.Alqasa\ME.Wpf.Mvvm\bin\Release\ME.Wpf.Mvvm.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
