@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IRC_Helpdesk_Message_Composer"
         mc:Ignorable="d"
-        Title="IRC HelpDesk Composer" Height="300" Width="500"
+        Title="IRC HelpDesk Composer" MinHeight="300" Width="500"
         SizeToContent="Height">
     <Window.Resources>
         <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
@@ -17,65 +17,111 @@
             <Setter Property="Padding" Value="5"/>
         </Style>
     </Window.Resources>
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <StackPanel >
-            <TextBlock>Main Category</TextBlock>
-            <ComboBox x:Name="MainCatElement"
+    <Grid>
+        <TabControl>
+            <TabItem Header="Support Ticket">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel >
+                        <TextBlock>Main Category</TextBlock>
+                        <ComboBox x:Name="MainCatElement"
                 ItemsSource="{Binding MainCategories}"
                       SelectedItem="{Binding MainCategory}"
                       Style="{StaticResource ComboBoxStyle}"></ComboBox>
-            <TextBlock>Secondary Category</TextBlock>
-            <ComboBox x:Name="SecCatElement"
+                        <TextBlock>Secondary Category</TextBlock>
+                        <ComboBox x:Name="SecCatElement"
                 SelectedItem="{Binding SecondaryCategory}"
                       Style="{StaticResource ComboBoxStyle}"
                       ItemsSource="{Binding SecondaryCategories}">
-            </ComboBox>
-            <TextBlock>Details</TextBlock>
-            <ComboBox SelectedItem="{Binding Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        </ComboBox>
+                        <TextBlock>Details</TextBlock>
+                        <ComboBox SelectedItem="{Binding Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Style="{StaticResource ComboBoxStyle}"
                       ItemsSource="{Binding DetailsList}">
-            </ComboBox>
-            
-        </StackPanel>
-        <StackPanel Grid.Column="1" Margin="10">
-            <Image Source="/Images/IRC Logo.png"
+                        </ComboBox>
+
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10">
+                        <Image Source="/Images/IRC Logo.png"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Width="100"/>
-            <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
+                        <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
             write an email manually through button below.</TextBlock>
-            <!--<TextBlock>
+                        <!--<TextBlock>
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
                      FontWeight="Bold">Developed By:</Run>
             </TextBlock>-->
-            <TextBlock HorizontalAlignment="Center">
+                        <TextBlock HorizontalAlignment="Center">
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
                      FontWeight="Bold">IRC IT Team</Run>
-            </TextBlock>
-            
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <Button Content="Create Email" 
+                        </TextBlock>
+
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Button Content="Create Email" 
                 VerticalAlignment="Top" 
                 Width="100"
                 Padding="5"
                 HorizontalAlignment="Center"
                 Style="{StaticResource ButtonStyle}"
                     Command="{Binding ComposeTicketCommand}"/>
-        </Grid>
-        <Grid Grid.Row="1"
+                    </Grid>
+                    <Grid Grid.Row="1"
               Grid.Column="1">
-            <Button Style="{StaticResource ButtonStyle}"
+                        <Button Style="{StaticResource ButtonStyle}"
                     Command="{Binding NewHelpdeskMailCommand}">Help</Button>
-        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Assets Tickets">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Category"/>
+                            <DataGridTextColumn Header="Sub Category"/>
+                            <DataGridTextColumn Header="Asset ID"/>
+                            <DataGridTextColumn Header="S/N"/>
+                            <DataGridTextColumn Header="Location"/>
+                            <DataGridTextColumn Header="Sub Location"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBox IsReadOnly="True"
+                                 Text="{Binding AssetsSourcePath}"/>
+                        <Button Grid.Column="1"
+                                Content="Choose File"
+                                Command="{Binding SelectSourceFileCommand}"/>
+                        <StackPanel Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <Button Content="Submit"/>
+                            <Button Content="Configure"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using Outlook = Microsoft.Office.Interop.Outlook;
+﻿using System;
+using Outlook = Microsoft.Office.Interop.Outlook;
 
 namespace IRC.Helpdesk.Core
 {
@@ -27,6 +28,11 @@ namespace IRC.Helpdesk.Core
             mail.Subject = subject;
             mail.HTMLBody = message + mail.HTMLBody;
             mail.Display(false);
+        }
+
+        public void Send(string to, string subject, string messasge)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

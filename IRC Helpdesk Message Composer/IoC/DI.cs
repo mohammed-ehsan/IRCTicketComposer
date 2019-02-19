@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace IRC_Helpdesk_Message_Composer
 {
@@ -63,6 +65,19 @@ namespace IRC_Helpdesk_Message_Composer
         public static void AddTransient(Type type)
         {
             serviceCollection.AddTransient(type);
+        }
+
+        public static void AddJsonConfiguartion(string path)
+        {
+            var configBuilder = new ConfigurationBuilder();
+            if (!File.Exists(path))
+                throw new FileNotFoundException("Json file not found");
+            var info = new FileInfo(path);
+            string baseDirectory = info.Directory.FullName;
+            string fileName = info.Name;
+            configBuilder.SetBasePath(baseDirectory);
+            configBuilder.AddJsonFile(fileName);
+            AddSinglton<IConfiguration>(configBuilder.Build());
         }
 
         #endregion

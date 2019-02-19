@@ -30,10 +30,15 @@ namespace IRC_Helpdesk_Message_Composer
             ICategoriesProvider catsProvider = new CategoriesProvider();
             DI.AddSinglton<ICategoriesProvider>(catsProvider);
 
+            //Register message composer as singlton.
+            DI.AddSinglton<IMessageComposer>(new MessageComposer());
+
             //Register mail service as scoped
             DI.AddService<IMailService, OutlookMailService>();
 
             DI.AddTransient(typeof(MainWindowViewModel));
+
+            DI.AddService<IAssetSource, ExcelAssetReader>();
 
             DI.Construct();
 

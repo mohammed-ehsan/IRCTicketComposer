@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace IRC.Helpdesk.Core
 {
-    public interface IMailService
+    public class Configuration
     {
-        void Compose(string to, string subject, string message);
-        void Send(string to, string subject, string message);
     }
 }
