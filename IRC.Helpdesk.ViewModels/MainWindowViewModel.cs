@@ -25,14 +25,15 @@ namespace IRC.Helpdesk.ViewModels
         /// </summary>
         private string _secondaryCategory;
 
-        
+
         #endregion
         #region Public Properties
 
         /// <summary>
         /// Selected main category.
         /// </summary>
-        public string MainCategory {
+        public string MainCategory
+        {
             get => _mainCategory;
             set {
                 _mainCategory = value;
@@ -43,7 +44,8 @@ namespace IRC.Helpdesk.ViewModels
         /// <summary>
         /// Selected secondary category.
         /// </summary>
-        public string SecondaryCategory {
+        public string SecondaryCategory
+        {
             get => _secondaryCategory;
             set {
                 _secondaryCategory = value;
@@ -116,15 +118,17 @@ namespace IRC.Helpdesk.ViewModels
 
         #region Public Commands
 
-        public ICommand ComposeTicketCommand {
+        public ICommand ComposeTicketCommand
+        {
             get {
                 if (_composeTicketCommand == null)
-                    _composeTicketCommand = new RelayCommand(this.ComposeTicket);
+                    _composeTicketCommand = new RelayCommand(this.SubmitAssetsSetup);
                 return _composeTicketCommand;
             }
         }
 
-        public ICommand NewHelpdeskMailCommand {
+        public ICommand NewHelpdeskMailCommand
+        {
             get {
                 if (_NewHelpdeskMailCommand == null)
                     _NewHelpdeskMailCommand = new RelayCommand(this.NewHelpdeskMail);
@@ -145,9 +149,9 @@ namespace IRC.Helpdesk.ViewModels
 
         #region Constructors
 
-        public MainWindowViewModel(ICategoriesProvider categoriesProvider, 
-            IMailService mailService, 
-            IDialogService dialogService, 
+        public MainWindowViewModel(ICategoriesProvider categoriesProvider,
+            IMailService mailService,
+            IDialogService dialogService,
             IMessageComposer messageComposer,
             IAssetSource assetsSource)
         {
@@ -201,14 +205,15 @@ namespace IRC.Helpdesk.ViewModels
                 sourceStream = new FileStream(this.AssetsSourcePath, FileMode.Open);
                 this.AssetsSource.SetSource(sourceStream);
             }
-            catch (Exception)
+            catch (IOException e)
             {
                 //TODO: log data.
-                throw;
+                this.DialogService.ShowDialog<MessageDialogViewModel>(new MessageDialogViewModel("IO error", "The application can not access the file because it is being used by other process."));
             }
             finally
             {
-                sourceStream.Dispose();
+                if (sourceStream != null)
+                    sourceStream.Dispose();
             }
             this.AssetsTickets = new ObservableCollection<AssetTicket>(this.AssetsSource.ReadAssets());
         }
@@ -217,7 +222,7 @@ namespace IRC.Helpdesk.ViewModels
         {
             foreach (var ticket in this.AssetsTickets)
             {
-                MailService.Send("helpdesk@rescue.org", "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
+                MailService.Compose("helpdesk@rescue.org", "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
             }
         }
         #endregion

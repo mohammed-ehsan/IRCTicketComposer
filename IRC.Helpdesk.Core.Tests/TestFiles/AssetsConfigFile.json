@@ -1,0 +1,9 @@
+{
+  "FirstRow": 2,
+  "InventoryNumberColumn": "B",
+  "SerialNumberColumn": "C",
+  "LocationColumn": "D",
+  "SubLocationColumn": "E",
+  "MainCategoryColumn": "F",
+  "SubCategoryColumn":  "G"
+}

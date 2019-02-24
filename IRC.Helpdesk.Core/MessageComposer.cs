@@ -13,7 +13,18 @@ namespace IRC.Helpdesk.Core
 
         public string ComposeAssetTicket(AssetTicket asset)
         {
-            throw new NotImplementedException();
+            string message = string.Format(
+                @"<P>Dear IT Team,<br><br>
+                Please we need to setup the following device:<br>
+                <b>Category:</b> {0}<br>
+                <b>Sub Category:</b> {1}<br>
+                <b>Inventory Number:</b> {2}<br>
+                <b>Serial Number:</b> {3}<br>
+                <b>Location:</b> {4}<br><br>
+                <b>Sub Location:</b> {5}<br><br>
+                Regards.</P>"
+                , asset.MainCategory, asset.SubCategory, asset.InventoryNumber, asset.SerialNumber, asset.Location, asset.SubLocation);
+            return message;
         }
 
         public string ComposeTicket(string mainCategory, string secondaryCategory, string details)

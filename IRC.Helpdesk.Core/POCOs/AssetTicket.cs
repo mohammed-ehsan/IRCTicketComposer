@@ -8,13 +8,13 @@ namespace IRC.Helpdesk.Core.POCOs
 
         #region Public Properties
 
-        public string Category { get; set; }
+        public string MainCategory { get; set; }
 
         public string SubCategory { get; set; }
 
-        public string AssetID { get; set; }
+        public string InventoryNumber { get; set; }
 
-        public string SerailNumber { get; set; }
+        public string SerialNumber { get; set; }
 
         public string Location { get; set; }
 
@@ -22,9 +22,5 @@ namespace IRC.Helpdesk.Core.POCOs
 
         #endregion
 
-        #region Public Methods
-
-
-        #endregion
     }
 }

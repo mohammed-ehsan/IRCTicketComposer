@@ -33,12 +33,19 @@ namespace IRC_Helpdesk_Message_Composer
             //Register message composer as singlton.
             DI.AddSinglton<IMessageComposer>(new MessageComposer());
 
+            var assetsConfig = new AssetsSourceConfiguration();
+            assetsConfig.Configure(Environment.CurrentDirectory + "\\Configs\\ExcelConfig.json");
+            DI.AddSinglton<IAssetSourceConfiguration>(assetsConfig);
+
+            var assetsSource = new ExcelAssetReader();
+            assetsSource.Configure(assetsConfig);
+
+            DI.AddSinglton<IAssetSource>(assetsSource);
+
             //Register mail service as scoped
             DI.AddService<IMailService, OutlookMailService>();
 
             DI.AddTransient(typeof(MainWindowViewModel));
-
-            DI.AddService<IAssetSource, ExcelAssetReader>();
 
             DI.Construct();
 

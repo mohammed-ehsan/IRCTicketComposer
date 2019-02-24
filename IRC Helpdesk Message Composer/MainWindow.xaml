@@ -16,6 +16,10 @@
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <TabControl>
@@ -88,14 +92,16 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <DataGrid>
+                    <DataGrid ItemsSource="{Binding AssetsTickets}"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Category"/>
-                            <DataGridTextColumn Header="Sub Category"/>
-                            <DataGridTextColumn Header="Asset ID"/>
-                            <DataGridTextColumn Header="S/N"/>
-                            <DataGridTextColumn Header="Location"/>
-                            <DataGridTextColumn Header="Sub Location"/>
+                            <DataGridTextColumn Header="Category" Binding="{Binding MainCategory}"/>
+                            <DataGridTextColumn Header="Sub Category" Binding="{Binding SubCategory}"/>
+                            <DataGridTextColumn Header="Invent. Numb." Binding="{Binding InventoryNumber}"/>
+                            <DataGridTextColumn Header="S/N" Binding="{Binding SerialNumber}"/>
+                            <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
+                            <DataGridTextColumn Header="Sub Location" Binding="{Binding SubLocation}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Row="1">
@@ -108,16 +114,20 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <TextBox IsReadOnly="True"
-                                 Text="{Binding AssetsSourcePath}"/>
+                                 Text="{Binding AssetsSourcePath}"
+                                 Style="{StaticResource TextBoxStyle}"/>
                         <Button Grid.Column="1"
+                                Style="{StaticResource ButtonStyle}"
                                 Content="Choose File"
                                 Command="{Binding SelectSourceFileCommand}"/>
                         <StackPanel Grid.Row="1"
                                     Grid.ColumnSpan="2"
                                     Orientation="Horizontal"
                                     HorizontalAlignment="Center">
-                            <Button Content="Submit"/>
-                            <Button Content="Configure"/>
+                            <Button Content="Submit" Command="{Binding ComposeTicketCommand}"
+                                    Style="{StaticResource ButtonStyle}"/>
+                            <Button Content="Configure"
+                                    Style="{StaticResource ButtonStyle}"/>
                         </StackPanel>
                     </Grid>
                 </Grid>

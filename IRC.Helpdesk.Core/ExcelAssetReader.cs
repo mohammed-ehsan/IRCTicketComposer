@@ -12,19 +12,46 @@ namespace IRC.Helpdesk.Core
 {
     public class ExcelAssetReader : IAssetSource
     {
+        private IAssetSourceConfiguration configuration;
+
         #region Public Properties 
 
         public DataSet Data { get; set; }
 
-        #endregion  
+        #endregion
+        
+        #region Public Methods
+
         public void Configure(IAssetSourceConfiguration Config)
         {
-            throw new NotImplementedException();
+            this.configuration = Config;
         }
 
         public IEnumerable<AssetTicket> ReadAssets()
         {
-            throw new NotImplementedException();
+            var table = Data.Tables[0];
+            List<AssetTicket> tickets = new List<AssetTicket>();
+            int currentRow = 1;
+            foreach (DataRow item in table.Rows)
+            {
+                if (currentRow < this.configuration.FirstRow)
+                {
+                    currentRow++;
+                    continue;
+                }
+                var asset = new AssetTicket()
+                {
+                    InventoryNumber = item[this.configuration.InventoryNumberIndex - 1].ToString(),
+                    SerialNumber = item[this.configuration.SerialNumberIndex - 1].ToString(),
+                    Location = item[this.configuration.LocationIndex - 1].ToString(),
+                    SubLocation = item[this.configuration.SubLocationIndex - 1].ToString(),
+                    MainCategory = item[this.configuration.MainCategoryIndex - 1].ToString(),
+                    SubCategory = item[this.configuration.SubCategoryIndex - 1].ToString()
+                };
+                tickets.Add(asset);
+                currentRow++;
+            }
+            return tickets;
         }
 
         public void SetSource(Stream fileStream)
@@ -34,6 +61,8 @@ namespace IRC.Helpdesk.Core
                 Data = reader.AsDataSet();
             }
         }
+
+        #endregion  
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
