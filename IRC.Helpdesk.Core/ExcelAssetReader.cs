@@ -87,12 +87,11 @@ namespace IRC.Helpdesk.Core
             
             return new AssetTicket()
             {
-                InventoryNumber = data.TryGetValue(this.configuration.InventoryNumberIndex - 1).ToString(),
-                SerialNumber = data.TryGetValue(this.configuration.SerialNumberIndex - 1).ToString(),
-                Location = data.TryGetValue(this.configuration.LocationIndex - 1).ToString(),
-                SubLocation = data.TryGetValue(this.configuration.SubLocationIndex - 1).ToString(),
-                MainCategory = data.TryGetValue(this.configuration.MainCategoryIndex - 1).ToString(),
-                SubCategory = data.TryGetValue(this.configuration.SubCategoryIndex - 1).ToString()
+                Make=data.TryGetValue(this.configuration.MakeIndex - 1),
+                Model = data.TryGetValue(this.configuration.ModelIndex -1),
+                InventoryNumber = data.TryGetValue(this.configuration.InventoryNumberIndex - 1),
+                User = data.TryGetValue(this.configuration.UserIndex - 1),
+                DelivaryDate = data.TryGetValue(this.configuration.DelivaryDateIndex -1)
             };
         }
 

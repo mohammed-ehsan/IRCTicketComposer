@@ -22,7 +22,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MainCategoryIndex = 3, SubCategoryIndex = 2, InventoryNumberIndex=3, LocationIndex=4, SerialNumberIndex=5, SubLocationIndex=6 };
+            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MakeIndex = 3, ModelIndex = 2, InventoryNumberIndex=3, UserIndex=4, DelivaryDateIndex=5 };
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
@@ -54,12 +54,11 @@ namespace Tests
             configuration.Configure(Environment.CurrentDirectory + "\\TestFiles\\AssetsConfigFile.json");
 
             Assert.AreEqual(configuration.FirstRow, 2);
-            Assert.AreEqual(configuration.InventoryNumberIndex, 2);
-            Assert.AreEqual(configuration.SerialNumberIndex, 3);
-            Assert.AreEqual(configuration.LocationIndex, 4);
-            Assert.AreEqual(configuration.SubLocationIndex, 5);
-            Assert.AreEqual(configuration.MainCategoryIndex, 6);
-            Assert.AreEqual(configuration.SubCategoryIndex, 7);
+            Assert.AreEqual(configuration.MakeIndex, 1);
+            Assert.AreEqual(configuration.ModelIndex, 2);
+            Assert.AreEqual(configuration.InventoryNumberIndex, 3);
+            Assert.AreEqual(configuration.UserIndex, 4);
+            Assert.AreEqual(configuration.DelivaryDateIndex, 5);
         }
 
         [TestCase("A", ExpectedResult =1)]
@@ -87,7 +86,7 @@ namespace Tests
             reader.Configure(this.Config);
             var result = reader.ReadAssets(input).ToArray();
 
-            Assert.AreEqual(result[0].MainCategory, "Office Equipment");
+            Assert.AreEqual(result[0].Model, "18-Aug-09");
         }
 
         /// <summary>

@@ -1,9 +1,8 @@
 {
   "FirstRow": 2,
+  "MakeColumn": "E",
+  "ModelColumn": "F",
   "InventoryNumberColumn": "H",
-  "SerialNumberColumn": "G",
-  "LocationColumn": "N",
-  "SubLocationColumn": "O",
-  "MainCategoryColumn": "C",
-  "SubCategoryColumn": "D"
+  "UserColumn": "O",
+  "DelivaryDateColumn": "A"
 }

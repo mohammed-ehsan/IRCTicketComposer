@@ -17,15 +17,8 @@ Please configure the following computer <b>‘{0}’</b> with asset tag <b>‘{1
         {
             string message = string.Format(
                 @"<P>Dear IT Team,<br><br>
-                Please we need to setup the following device:<br>
-                <b>Category:</b> {0}<br>
-                <b>Sub Category:</b> {1}<br>
-                <b>Inventory Number:</b> {2}<br>
-                <b>Serial Number:</b> {3}<br>
-                <b>Location:</b> {4}<br><br>
-                <b>Sub Location:</b> {5}<br><br>
-                Regards.</P>"
-                , asset.MainCategory, asset.SubCategory, asset.InventoryNumber, asset.SerialNumber, asset.Location, asset.SubLocation);
+Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b>, expected delivery date <b>{4}</b>.</P>"
+                , asset.Make, asset.Model, asset.InventoryNumber, asset.User, asset.DelivaryDate);
             return message;
         }
 

@@ -7,41 +7,14 @@ namespace IRC.Helpdesk.Core
     public class AssetsSourceConfiguration : IAssetSourceConfiguration
     {
         #region Public Properties
-        
-        /// <summary>
-        /// Index of first row.
-        /// </summary>
+
         public int FirstRow { get; set; }
-
-        /// <summary>
-        /// Index of category column.
-        /// </summary>
-        public int MainCategoryIndex { get; set; }
-
-        /// <summary>
-        /// Index of sub category column.
-        /// </summary>
-        public int SubCategoryIndex { get; set; }
-
-        /// <summary>
-        /// Inventory number column index.
-        /// </summary>
+        public int MakeIndex { get; set; }
+        public int ModelIndex { get; set; }
         public int InventoryNumberIndex { get; set; }
+        public int UserIndex { get; set; }
+        public int DelivaryDateIndex { get; set; }
 
-        /// <summary>
-        /// Serialnumber column index.
-        /// </summary>
-        public int SerialNumberIndex { get; set; }
-
-        /// <summary>
-        /// Setup location index.
-        /// </summary>
-        public int LocationIndex { get; set; }
-
-        /// <summary>
-        /// Setup sub location index.
-        /// </summary>
-        public int SubLocationIndex { get; set; }
 
         #endregion
 
@@ -84,12 +57,11 @@ namespace IRC.Helpdesk.Core
         private void Fill(JsonConfiguration config)
         {
             this.FirstRow = config.FirstRow;
-            this.MainCategoryIndex = Translate(config.MainCategoryColumn);
-            this.SubCategoryIndex = Translate(config.SubCategoryColumn);
+            this.MakeIndex = Translate(config.MakeColumn);
+            this.ModelIndex = Translate(config.ModelColumn);
             this.InventoryNumberIndex = Translate(config.InventoryNumberColumn);
-            this.SerialNumberIndex = Translate(config.SerialNumberColumn);
-            this.LocationIndex = Translate(config.LocationColumn);
-            this.SubLocationIndex = Translate(config.SubLocationColumn);
+            this.UserIndex = Translate(config.UserColumn);
+            this.DelivaryDateIndex = Translate(config.DelivaryDateColumn);
         }
 
         #endregion

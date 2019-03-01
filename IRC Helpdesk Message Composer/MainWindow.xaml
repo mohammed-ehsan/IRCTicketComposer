@@ -153,12 +153,11 @@
                                         Command="{Binding PasteCommand}"/>
                         </DataGrid.InputBindings>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Category" Binding="{Binding MainCategory}"/>
-                            <DataGridTextColumn Header="Sub Category" Binding="{Binding SubCategory}"/>
+                            <DataGridTextColumn Header="Make" Binding="{Binding Make}"/>
+                            <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
                             <DataGridTextColumn Header="Invent. Numb." Binding="{Binding InventoryNumber}"/>
-                            <DataGridTextColumn Header="S/N" Binding="{Binding SerialNumber}"/>
-                            <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
-                            <DataGridTextColumn Header="Sub Location" Binding="{Binding SubLocation}"/>
+                            <DataGridTextColumn Header="User" Binding="{Binding User}"/>
+                            <DataGridTextColumn Header="Delivary Date" Binding="{Binding DelivaryDate}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                     <StatusBar Grid.Row="2">

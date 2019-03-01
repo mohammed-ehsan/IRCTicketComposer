@@ -8,17 +8,15 @@ namespace IRC.Helpdesk.Core.POCOs
 
         #region Public Properties
 
-        public string MainCategory { get; set; }
+        public string Make { get; set; }
 
-        public string SubCategory { get; set; }
+        public string Model { get; set; }
 
         public string InventoryNumber { get; set; }
 
-        public string SerialNumber { get; set; }
+        public string User { get; set; }
 
-        public string Location { get; set; }
-
-        public string SubLocation { get; set; }
+        public string DelivaryDate { get; set; }
 
         #endregion
 
