@@ -19,6 +19,12 @@ namespace IRC.Helpdesk.Core
 
         #region Public Methods
 
+        /// <summary>
+        /// Compose new email with provided data. A new compose dialog from outlook will be opened.
+        /// </summary>
+        /// <param name="to">To part of the message</param>
+        /// <param name="subject">Subject of the message</param>
+        /// <param name="message">Message body in xml</param>
         public void Compose(string to, string subject, string message)
         {
             var app = new Outlook.Application();
@@ -30,6 +36,12 @@ namespace IRC.Helpdesk.Core
             mail.Display(false);
         }
 
+        /// <summary>
+        /// Send the email directly without user interaction.
+        /// </summary>
+        /// <param name="to"></param>
+        /// <param name="subject"></param>
+        /// <param name="messasge"></param>
         public void Send(string to, string subject, string messasge)
         {
             throw new NotImplementedException();

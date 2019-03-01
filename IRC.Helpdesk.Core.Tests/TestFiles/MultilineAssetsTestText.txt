@@ -1,0 +1,11 @@
+﻿helpdesk@rescue.org	18-Aug-09	Office Equipment	 Camera	Sony	Nil Digital 	BFUM10302073	46171	518		270.00	OFDA	GO238	Erbil Office	Ops Store		S		5IQ/ERB/AR#0304							
+helpdesk@rescue.org	27-Oct-09	Office Equipment	 Camera	Olympus Stylus Tough	"
+  800 12 MPX Digital "	WXE409KCF015	46162	591		374.00	AUSAID	OG175	Erbil Office	Ops store		S	With Battry+Power cable+USB cable+leathercase	5IQ/ERB/AR#0168							
+helpdesk@rescue.org	5-Sep-10	Office Equipment	 Camera	Olympus	Styus tough-8010 Digital 	B2K506829	57809	5IQ/ERB/1519		575.00	AUSAID	OG178	Erbil Office	Store		S	With Battry, Charger, USB, connection cable +Catalogue. + case	5IQ/ERB/AR#0081	Yes						
+helpdesk@rescue.org	3-Jan-10	Medical Equipment 	" Defibrillator
+ HeartStart HS1"	Philips	HS1	A09H-02827	57687	Nil		1847.00	UNHCR	GU831	Baghdad Office	GH Rest Room		S	With carrying case+ Battery (2)+ Pads cartridge + bag\ It was in OPS	5IQ/BGH/AR# 0418							
+helpdesk@rescue.org	3-Jan-10	Medical Equipment 	" Defibrillator
+ HeartStart HS1"	Philips	HS1	CNG9CB813K	57698	Nil		1847.00	UNHCR	GU831	Erbil Office	Store		DMGD	With carrying case+ Battery	5IQ/ERB/AR#0376							
+helpdesk@rescue.org	3-Jan-10	Medical Equipment 	" Defibrillator
+ HeartStart HS1"	Philips	HS1	103TKG6821	57699	ERB-4197		472.00	UNHCR	GU831	Erbil Office	Store		S	"with battery pack and 1 pair of 
+electrodes+training cartridge+defibrillator pads/electrodes +bag"	5IQ/ERB/AR#0377							

@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Input;
-
+using System.ComponentModel;
 
 namespace IRC.Helpdesk.ViewModels
 {
@@ -103,7 +103,27 @@ namespace IRC.Helpdesk.ViewModels
         /// </summary>
         public IMessageComposer MessageComposer { get; set; }
 
+        /// <summary>
+        /// Assets source provider.
+        /// </summary>
         public IAssetSource AssetsSource { get; set; }
+
+        /// <summary>
+        /// Clipboard service.
+        /// </summary>
+        public IClipBoard Clipboard { get; set; }
+
+        /// <summary>
+        /// Currently selected asset. nll if no assets is selected.
+        /// </summary>
+        public AssetTicket SelectedAsset { get; set; }
+
+        public int AssetsCount
+        {
+            get => this.AssetsTickets.Count;
+        }
+
+        public new PropertyChangedEventHandler PropertyChanged;
         #endregion
 
         #region Private Commands
@@ -111,6 +131,10 @@ namespace IRC.Helpdesk.ViewModels
         private ICommand _composeTicketCommand;
         private ICommand _NewHelpdeskMailCommand;
         private ICommand _selectSourceFileCommand;
+        private ICommand _configureCommand;
+        private ICommand _pasteCommand;
+        private ICommand _deleteSelectedCommand;
+        private ICommand _clearAllCommand;
 
         public event EventHandler<DialogClosedEventArgs> Closed;
 
@@ -145,15 +169,54 @@ namespace IRC.Helpdesk.ViewModels
             }
         }
 
+        public ICommand ConfigureCommand { get; set; }
+        
+
+        public ICommand PasteCommand
+        {
+            get {
+                if (_pasteCommand == null)
+                    _pasteCommand = new RelayCommand(this.Paste);
+                return _pasteCommand;
+            }
+        }
+
+        public ICommand DeleteSelectedCommand
+        {
+            get {
+                if (_deleteSelectedCommand == null)
+                    _deleteSelectedCommand = new RelayCommand(this.DeleteSelected);
+                return _deleteSelectedCommand;
+            }
+        }
+
+        public ICommand ClearAllCommand
+        {
+            get {
+                if (_clearAllCommand == null)
+                    _clearAllCommand = new RelayCommand(this.ClearAll);
+                return _clearAllCommand;
+            }
+        }
         #endregion
 
         #region Constructors
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="categoriesProvider">Categories provider for tickets generating.</param>
+        /// <param name="mailService">Emailing service provider.</param>
+        /// <param name="dialogService">Dialog service provider.</param>
+        /// <param name="messageComposer">Message composing service.</param>
+        /// <param name="assetsSource">Assets source provider.</param>
+        /// <param name="clipboard">Clipboard access provider.</param>
         public MainWindowViewModel(ICategoriesProvider categoriesProvider,
             IMailService mailService,
             IDialogService dialogService,
             IMessageComposer messageComposer,
-            IAssetSource assetsSource)
+            IAssetSource assetsSource,
+            IClipBoard clipboard)
         {
             this.CategoriesProvider = categoriesProvider;
             this.MailService = mailService;
@@ -161,6 +224,14 @@ namespace IRC.Helpdesk.ViewModels
             this.MainCategories = categoriesProvider.MainCategories;
             this.MessageComposer = messageComposer;
             this.AssetsSource = assetsSource;
+            this.Clipboard = clipboard;
+            this.AssetsTickets = new ObservableCollection<AssetTicket>();
+            this.AssetsTickets.CollectionChanged += AssetsTickets_CollectionChanged;
+        }
+
+        private void AssetsTickets_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            base.RaisePropertyChanged(nameof(this.AssetsCount));
         }
 
         #endregion
@@ -168,6 +239,9 @@ namespace IRC.Helpdesk.ViewModels
 
         #region Public Methods
 
+        /// <summary>
+        /// Compose a single ticket fro specified incident.
+        /// </summary>
         public void ComposeTicket()
         {
             if (string.IsNullOrWhiteSpace(this.MainCategory))
@@ -192,6 +266,9 @@ namespace IRC.Helpdesk.ViewModels
             MailService.Compose("helpdesk@rescue.org", string.Empty, string.Empty);
         }
 
+        /// <summary>
+        /// Select an excel file source for assets to make setup tickets.
+        /// </summary>
         public void SelectSource()
         {
             string selectedPath = DialogService.ShowOpenFileDialog("Excel File|*.xlsx");
@@ -204,6 +281,11 @@ namespace IRC.Helpdesk.ViewModels
             {
                 sourceStream = new FileStream(this.AssetsSourcePath, FileMode.Open);
                 this.AssetsSource.SetSource(sourceStream);
+                var assets = this.AssetsSource.ReadAssets();
+                foreach (var item in assets)
+                {
+                    this.AssetsTickets.Add(item);
+                }
             }
             catch (IOException e)
             {
@@ -215,15 +297,49 @@ namespace IRC.Helpdesk.ViewModels
                 if (sourceStream != null)
                     sourceStream.Dispose();
             }
-            this.AssetsTickets = new ObservableCollection<AssetTicket>(this.AssetsSource.ReadAssets());
         }
 
+        /// <summary>
+        /// Submit the tickets arranged in the datagrid.
+        /// </summary>
         public void SubmitAssetsSetup()
         {
             foreach (var ticket in this.AssetsTickets)
             {
                 MailService.Compose("helpdesk@rescue.org", "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
             }
+        }
+
+        /// <summary>
+        /// Paste into the grid the copied assets from excel sheet.
+        /// </summary>
+        public void Paste()
+        {
+            var result = this.AssetsSource.ReadAssets(Clipboard.GetText());
+            if (result == null)
+                return;
+            foreach (var item in result)
+            {
+                this.AssetsTickets.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// Delete currently selected asset from the assets grid.
+        /// </summary>
+        public void DeleteSelected()
+        {
+            if (this.SelectedAsset == null)
+                return;
+            this.AssetsTickets.Remove(this.SelectedAsset);
+        }
+
+        /// <summary>
+        /// Clear all assets.
+        /// </summary>
+        public void ClearAll()
+        {
+            this.AssetsTickets.Clear();
         }
         #endregion
     }

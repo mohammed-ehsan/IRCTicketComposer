@@ -13,5 +13,6 @@ namespace IRC.Helpdesk.Core
         void SetSource(Stream fileStream);
         void Configure(IAssetSourceConfiguration Config);
         IEnumerable<AssetTicket> ReadAssets();
+        IEnumerable<AssetTicket> ReadAssets(string text);
     }
 }

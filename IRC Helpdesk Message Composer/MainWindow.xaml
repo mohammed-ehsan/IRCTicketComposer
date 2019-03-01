@@ -20,10 +20,14 @@
             <Setter Property="Margin" Value="3"/>
             <Setter Property="Padding" Value="5"/>
         </Style>
+        <Style x:Key="ToolbarImageStyle" TargetType="Image">
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <TabControl>
-            <TabItem Header="Support Ticket">
+            <!--<TabItem Header="Support Ticket">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
@@ -58,11 +62,11 @@
                    Width="100"/>
                         <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
             write an email manually through button below.</TextBlock>
-                        <!--<TextBlock>
+                        --><!--<TextBlock>
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
                      FontWeight="Bold">Developed By:</Run>
-            </TextBlock>-->
+            </TextBlock>--><!--
                         <TextBlock HorizontalAlignment="Center">
                 <Run Foreground="#ffbf00"
                      FontStyle="Italic"
@@ -85,16 +89,69 @@
                     Command="{Binding NewHelpdeskMailCommand}">Help</Button>
                     </Grid>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Header="Assets Tickets">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
+                    <ToolBarTray>
+                        <ToolBar>
+                            <Button ToolTip="Paste"
+                                    Command="{Binding PasteCommand}">
+                                <Image Source="/Resources/Images/Paste.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                            <Button ToolTip="Delete selected asset"
+                                    Command="{Binding DeleteSelectedCommand}">
+                                <Image Source="/Resources/Images/remove_row.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                            <Button ToolTip="Delete all"
+                                Command="{Binding ClearAllCommand}">
+                                <Image Source="/Resources/Images/remove_all.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <Button ToolTip="Import from excel"
+                                Command="{Binding SelectSourceFileCommand}">
+                                <Image Source="/Resources/Images/import_excel.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                            <Button ToolTip="SendTickets"
+                                Command="{Binding ComposeTicketCommand}">
+                                <Image Source="/Resources/Images/send_tickets.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                            <Button ToolTip="Configure excel"
+                                Command="{Binding ConfigureCommand}">
+                                <Image Source="/Resources/Images/configure.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                        </ToolBar>
+                        <ToolBar>
+                            <Button ToolTip="About"
+                                Command="{Binding AboutCommand}">
+                                <Image Source="/Resources/Images/about.png"
+                                       Style="{StaticResource ToolbarImageStyle}"/>
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
                     <DataGrid ItemsSource="{Binding AssetsTickets}"
                               AutoGenerateColumns="False"
-                              IsReadOnly="True">
+                              IsReadOnly="True"
+                              SelectedItem="{Binding SelectedAsset}"
+                              Grid.Row="1">
+                        <DataGrid.InputBindings>
+                            <KeyBinding Key="Delete"
+                                        Command="{Binding DeleteSelectedCommand}"/>
+                            <KeyBinding Key="V"
+                                        Modifiers="Ctrl"
+                                        Command="{Binding PasteCommand}"/>
+                        </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Category" Binding="{Binding MainCategory}"/>
                             <DataGridTextColumn Header="Sub Category" Binding="{Binding SubCategory}"/>
@@ -104,32 +161,14 @@
                             <DataGridTextColumn Header="Sub Location" Binding="{Binding SubLocation}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBox IsReadOnly="True"
-                                 Text="{Binding AssetsSourcePath}"
-                                 Style="{StaticResource TextBoxStyle}"/>
-                        <Button Grid.Column="1"
-                                Style="{StaticResource ButtonStyle}"
-                                Content="Choose File"
-                                Command="{Binding SelectSourceFileCommand}"/>
-                        <StackPanel Grid.Row="1"
-                                    Grid.ColumnSpan="2"
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Center">
-                            <Button Content="Submit" Command="{Binding ComposeTicketCommand}"
-                                    Style="{StaticResource ButtonStyle}"/>
-                            <Button Content="Configure"
-                                    Style="{StaticResource ButtonStyle}"/>
-                        </StackPanel>
-                    </Grid>
+                    <StatusBar Grid.Row="2">
+                        <StatusBarItem>
+                            <TextBlock>
+                                <Run>Count:</Run>
+                                <Run Text="{Binding AssetsCount, Mode=OneWay}"/>
+                            </TextBlock>
+                        </StatusBarItem>
+                    </StatusBar>
                 </Grid>
             </TabItem>
         </TabControl>

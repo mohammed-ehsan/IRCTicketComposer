@@ -42,6 +42,8 @@ namespace IRC_Helpdesk_Message_Composer
 
             DI.AddSinglton<IAssetSource>(assetsSource);
 
+            DI.AddSinglton<IClipBoard>(new ClipboardService());
+
             //Register mail service as scoped
             DI.AddService<IMailService, OutlookMailService>();
 

@@ -205,7 +205,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
@@ -225,6 +224,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\irc_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\configure.png" />
+    <Resource Include="Resources\Images\import_excel.png" />
+    <Resource Include="Resources\Images\send_tickets.png" />
+    <Resource Include="Resources\Images\remove_all.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\remove_row.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\about.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

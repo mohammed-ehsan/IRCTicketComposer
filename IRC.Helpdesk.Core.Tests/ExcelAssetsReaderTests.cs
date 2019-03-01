@@ -22,7 +22,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MainCategoryIndex = 1, SubCategoryIndex = 2, InventoryNumberIndex=3, LocationIndex=4, SerialNumberIndex=5, SubLocationIndex=6 };
+            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MainCategoryIndex = 3, SubCategoryIndex = 2, InventoryNumberIndex=3, LocationIndex=4, SerialNumberIndex=5, SubLocationIndex=6 };
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
@@ -71,6 +71,36 @@ namespace Tests
             var configuration = new AssetsSourceConfiguration();
             return configuration.Translate(columnId);
             
+        }
+
+        /// <summary>
+        /// Test reading assets from excel text copied row.
+        /// </summary>
+        /// <param name="input"></param>
+        [TestCase(@"helpdesk@rescue.org	18-Aug-09	Office Equipment	 Camera	Sony	Nil Digital 	BFUM10302073	46171	518		270.00	OFDA	GO238	Erbil Office	Ops Store		S		5IQ/ERB/AR#0304							
+")]
+        [Test]
+        public void ReadAssetsTest(string input)
+        {
+            var reader = new ExcelAssetReader();
+
+            reader.Configure(this.Config);
+            var result = reader.ReadAssets(input).ToArray();
+
+            Assert.AreEqual(result[0].MainCategory, "Office Equipment");
+        }
+
+        /// <summary>
+        /// Test reading a string containing multiple assets.
+        /// </summary>
+        [Test]
+        public void ReadAssets_MultipleAssetsText()
+        {
+            var data = File.ReadAllText(Environment.CurrentDirectory + "\\TestFiles\\MultilineAssetsTestText.txt");
+            var reader = new ExcelAssetReader();
+            reader.Configure(this.Config);
+            var assets = reader.ReadAssets(data);
+            Assert.Greater(assets.Count(), 0);
         }
     }
 }
