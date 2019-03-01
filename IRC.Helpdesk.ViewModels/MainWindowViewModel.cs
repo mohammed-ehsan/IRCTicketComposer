@@ -141,6 +141,15 @@ namespace IRC.Helpdesk.ViewModels
 
         #region Public Commands
 
+        public ICommand ConfigureCommand
+        {
+            get {
+                if (_configureCommand == null)
+                    _configureCommand = new RelayCommand(this.Configure);
+                return _configureCommand;
+            }
+        }
+
         public ICommand ComposeTicketCommand
         {
             get {
@@ -167,9 +176,6 @@ namespace IRC.Helpdesk.ViewModels
                 return _selectSourceFileCommand;
             }
         }
-
-        public ICommand ConfigureCommand { get; set; }
-        
 
         public ICommand PasteCommand
         {
@@ -339,6 +345,11 @@ namespace IRC.Helpdesk.ViewModels
         public void ClearAll()
         {
             this.AssetsTickets.Clear();
+        }
+
+        public void Configure()
+        {
+            DialogService.ShowDialog(new ConfigureDialogViewModel(DI.GetService<IAssetSourceConfiguration>(),this.DialogService));
         }
         #endregion
     }

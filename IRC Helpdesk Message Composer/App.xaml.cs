@@ -24,6 +24,7 @@ namespace IRC_Helpdesk_Message_Composer
             var dialogService = new Dialog(null);
             dialogService.Register<MainWindowViewModel, MainWindow>();
             dialogService.Register<MessageDialogViewModel, MessageDialog>();
+            dialogService.Register<ConfigureDialogViewModel, ConfigureDialog>();
             DI.AddSinglton<IDialogService>(dialogService);
 
             //Register Categories Provider as singlton
@@ -33,8 +34,7 @@ namespace IRC_Helpdesk_Message_Composer
             //Register message composer as singlton.
             DI.AddSinglton<IMessageComposer>(new MessageComposer());
 
-            var assetsConfig = new AssetsSourceConfiguration();
-            assetsConfig.Configure(Environment.CurrentDirectory + "\\Configs\\ExcelConfig.json");
+            var assetsConfig = new AssetsSourceConfiguration(Environment.CurrentDirectory + "\\Configs\\ExcelConfig.json");
             DI.AddSinglton<IAssetSourceConfiguration>(assetsConfig);
 
             var assetsSource = new ExcelAssetReader();
@@ -50,6 +50,7 @@ namespace IRC_Helpdesk_Message_Composer
             DI.AddTransient(typeof(MainWindowViewModel));
 
             DI.Construct();
+            IRC.Helpdesk.ViewModels.DI.SetProvider(DI.Provider);
 
             DI.GetService<IDialogService>().ShowWindow<MainWindowViewModel>(DI.GetService<MainWindowViewModel>(), true);
         }

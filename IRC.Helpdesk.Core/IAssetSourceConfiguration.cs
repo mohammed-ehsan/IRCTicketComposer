@@ -9,5 +9,8 @@
         int UserIndex { get; set; }
         int DelivaryDateIndex { get; set; }
 
+        void Update(JsonConfiguration configuration);
+        void SaveChanges();
+        JsonConfiguration GetJsonObject();
     }
 }
