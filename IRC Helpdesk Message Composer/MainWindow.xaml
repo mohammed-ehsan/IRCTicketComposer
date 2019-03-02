@@ -25,6 +25,11 @@
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="V"
+                                        Modifiers="Ctrl"
+                                        Command="{Binding PasteCommand}"/>
+    </Window.InputBindings>
     <Grid>
         <TabControl>
             <!--<TabItem Header="Support Ticket">
@@ -148,9 +153,7 @@
                         <DataGrid.InputBindings>
                             <KeyBinding Key="Delete"
                                         Command="{Binding DeleteSelectedCommand}"/>
-                            <KeyBinding Key="V"
-                                        Modifiers="Ctrl"
-                                        Command="{Binding PasteCommand}"/>
+                            
                         </DataGrid.InputBindings>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Make" Binding="{Binding Make}"/>
