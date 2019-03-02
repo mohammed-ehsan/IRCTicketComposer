@@ -134,6 +134,7 @@ namespace IRC.Helpdesk.ViewModels
         private ICommand _pasteCommand;
         private ICommand _deleteSelectedCommand;
         private ICommand _clearAllCommand;
+        private ICommand _showAboutCommand;
 
         public event EventHandler<DialogClosedEventArgs> Closed;
 
@@ -201,6 +202,15 @@ namespace IRC.Helpdesk.ViewModels
                 if (_clearAllCommand == null)
                     _clearAllCommand = new RelayCommand(this.ClearAll);
                 return _clearAllCommand;
+            }
+        }
+
+        public ICommand ShowAboutCommand
+        {
+            get {
+                if (_showAboutCommand == null)
+                    _showAboutCommand = new RelayCommand(this.ShowAbout);
+                return _showAboutCommand;
             }
         }
         #endregion
@@ -347,9 +357,20 @@ namespace IRC.Helpdesk.ViewModels
             this.AssetsTickets.Clear();
         }
 
+        /// <summary>
+        /// Open the excel configuration dialog.
+        /// </summary>
         public void Configure()
         {
             DialogService.ShowDialog(new ConfigureDialogViewModel(DI.GetService<IAssetSourceConfiguration>(),this.DialogService));
+        }
+
+        /// <summary>
+        /// Open the about dialog.
+        /// </summary>
+        public void ShowAbout()
+        {
+            DialogService.ShowDialog(new AboutViewModel());
         }
         #endregion
     }

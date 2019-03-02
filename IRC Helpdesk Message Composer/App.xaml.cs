@@ -25,6 +25,7 @@ namespace IRC_Helpdesk_Message_Composer
             dialogService.Register<MainWindowViewModel, MainWindow>();
             dialogService.Register<MessageDialogViewModel, MessageDialog>();
             dialogService.Register<ConfigureDialogViewModel, ConfigureDialog>();
+            dialogService.Register<AboutViewModel, AboutDialog>();
             DI.AddSinglton<IDialogService>(dialogService);
 
             //Register Categories Provider as singlton

@@ -116,6 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ConfigureDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +140,9 @@
     <Compile Include="Converters\BaseValueConverter.cs" />
     <Compile Include="Converters\DetailsMultiConverter.cs" />
     <Compile Include="Converters\SecondaryCategoryMultiConverter.cs" />
+    <Compile Include="Dialogs\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\ConfigureDialog.xaml.cs">
       <DependentUpon>ConfigureDialog.xaml</DependentUpon>
     </Compile>
@@ -217,7 +224,7 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\IRC logo.png" />
+    <Resource Include="Resources\Images\IRC logo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IRC.Helpdesk.Core\IRC.Helpdesk.Core.csproj">

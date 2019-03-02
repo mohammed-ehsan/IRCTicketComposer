@@ -134,7 +134,7 @@
                         </ToolBar>
                         <ToolBar>
                             <Button ToolTip="About"
-                                Command="{Binding AboutCommand}">
+                                Command="{Binding ShowAboutCommand}">
                                 <Image Source="/Resources/Images/about.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
                             </Button>
