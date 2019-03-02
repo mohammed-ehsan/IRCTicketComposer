@@ -1,10 +1,6 @@
 ﻿using IRC.Helpdesk.Core;
 using ME.Wpf.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace IRC.Helpdesk.ViewModels
@@ -90,7 +86,15 @@ namespace IRC.Helpdesk.ViewModels
             }
             var config = CreateConfiguration();
             this._configuration.Update(config);
-            this._configuration.SaveChanges();
+            try
+            {
+                this._configuration.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                this._dialogService.ShowDialog(new MessageDialogViewModel("Update failed", "Saving the changes failed. File note found or being used by other process."));
+                return;
+            }
             this.Closed?.Invoke(this, new DialogClosedEventArgs(true));
         }
 
@@ -102,7 +106,7 @@ namespace IRC.Helpdesk.ViewModels
 
         #region Private Helpers
 
-        public void Populate(IAssetSourceConfiguration config)
+        private void Populate(IAssetSourceConfiguration config)
         {
             var jsonConfig = config.GetJsonObject();
             this.FirstRowIndex = jsonConfig.FirstRow;
@@ -110,7 +114,7 @@ namespace IRC.Helpdesk.ViewModels
             this.Model = jsonConfig.ModelColumn;
             this.InventoryNumber = jsonConfig.InventoryNumberColumn;
             this.User = jsonConfig.UserColumn;
-            this.DeliveryDate = jsonConfig.DelivaryDateColumn;
+            this.DeliveryDate = jsonConfig.DeliveryDateColumn;
         }
 
         /// <summary>
@@ -126,7 +130,7 @@ namespace IRC.Helpdesk.ViewModels
                 ModelColumn = this.Model,
                 InventoryNumberColumn = this.InventoryNumber,
                 UserColumn = this.User,
-                DelivaryDateColumn = this.DeliveryDate
+                DeliveryDateColumn = this.DeliveryDate
             };
             return config;
         }
@@ -137,6 +141,8 @@ namespace IRC.Helpdesk.ViewModels
         /// <returns></returns>
         private bool IsValid()
         {
+            if (this.FirstRowIndex < 0)
+                return false;
             if (string.IsNullOrWhiteSpace(this.Make))
                 return false;
             if (string.IsNullOrWhiteSpace(this.Model))

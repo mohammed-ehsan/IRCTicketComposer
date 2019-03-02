@@ -12,5 +12,20 @@ namespace IRC.Helpdesk.Core.Tests
         public int InventoryNumberIndex { get; set; }
         public int UserIndex { get; set; }
         public int DelivaryDateIndex { get; set; }
+
+        public JsonConfiguration GetJsonObject()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(JsonConfiguration configuration)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,5 +4,5 @@
   "ModelColumn": "B",
   "InventoryNumberColumn": "C",
   "UserColumn": "D",
-  "DelivaryDateColumn": "E"
+  "DeliveryDateColumn": "E"
 }

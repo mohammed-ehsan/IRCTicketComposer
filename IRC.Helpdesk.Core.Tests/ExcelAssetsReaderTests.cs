@@ -30,7 +30,7 @@ namespace Tests
         /// Test if <see cref="ExcelAssetReader.ReadAssets"/> works.
         /// </summary>
         [Test]
-        public void ReadAssetsTest()
+        public void ReadAssets_GetTickets_GreaterThan0()
         {
             var assetsReader = new ExcelAssetReader();
             assetsReader.Configure(this.Config);
@@ -48,10 +48,9 @@ namespace Tests
         /// Test if <see cref="AssetsSourceConfiguration"/> is working properly.
         /// </summary>
         [Test]
-        public void ReadJsonConfiguration()
+        public void CreateAssetsSourceConfiguration_Successfull()
         {
-            var configuration = new AssetsSourceConfiguration();
-            configuration.Configure(Environment.CurrentDirectory + "\\TestFiles\\AssetsConfigFile.json");
+            var configuration = new AssetsSourceConfiguration(Environment.CurrentDirectory + "\\TestFiles\\AssetsConfigFile.json");
 
             Assert.AreEqual(configuration.FirstRow, 2);
             Assert.AreEqual(configuration.MakeIndex, 1);
@@ -64,11 +63,11 @@ namespace Tests
         [TestCase("A", ExpectedResult =1)]
         [TestCase("AA", ExpectedResult =27)]
         [Test]
-        public int TransalateStringToNumberTest(string columnId)
+        public int Convert_ExpectedResults(string columnId)
         {
             //Preparing
-            var configuration = new AssetsSourceConfiguration();
-            return configuration.Translate(columnId);
+            var configuration = new AssetsSourceConfiguration(Environment.CurrentDirectory + "\\TestFiles\\AssetsConfigFile.json");
+            return configuration.Convert(columnId);
             
         }
 
@@ -79,7 +78,7 @@ namespace Tests
         [TestCase(@"helpdesk@rescue.org	18-Aug-09	Office Equipment	 Camera	Sony	Nil Digital 	BFUM10302073	46171	518		270.00	OFDA	GO238	Erbil Office	Ops Store		S		5IQ/ERB/AR#0304							
 ")]
         [Test]
-        public void ReadAssetsTest(string input)
+        public void ReadAssets_FromString_CheckValues(string input)
         {
             var reader = new ExcelAssetReader();
 

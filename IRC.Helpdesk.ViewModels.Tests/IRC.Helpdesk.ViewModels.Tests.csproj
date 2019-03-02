@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="nunit" Version="3.11.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IRC.Helpdesk.Core\IRC.Helpdesk.Core.csproj" />
+    <ProjectReference Include="..\IRC.Helpdesk.ViewModels\IRC.Helpdesk.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ME.Wpf.Mvvm">
+      <HintPath>..\..\..\..\Documents\Projects\installmentsalessystem\Sales.Alqasa\ME.Wpf.Mvvm\bin\Release\ME.Wpf.Mvvm.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

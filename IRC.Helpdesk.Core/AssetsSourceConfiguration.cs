@@ -43,7 +43,10 @@ namespace IRC.Helpdesk.Core
             try
             {
                 var serializer = new JsonSerializer();
-                this._jsonConfiguration = serializer.Deserialize<JsonConfiguration>(new JsonTextReader(File.OpenText(jsonPath)));
+                using (var jsonStreamReader = File.OpenText(jsonPath))
+                {
+                    this._jsonConfiguration = serializer.Deserialize<JsonConfiguration>(new JsonTextReader(jsonStreamReader));
+                }
                 Fill(this._jsonConfiguration);
             }
             catch (Exception)
@@ -84,17 +87,12 @@ namespace IRC.Helpdesk.Core
         /// <returns></returns>
         public JsonConfiguration GetJsonObject() => this._jsonConfiguration;
 
-        #endregion
-
-
-        #region Private Methods
-
         /// <summary>
         /// Converts column name string into zero based numerical index.
         /// </summary>
         /// <param name="columnId">Column name in excel sheet</param>
         /// <returns></returns>
-        private int Convert(string columnId)
+        public int Convert(string columnId)
         {
             int value = 0;
             var input = columnId.ToLowerInvariant();
@@ -109,6 +107,12 @@ namespace IRC.Helpdesk.Core
 
             return value;
         }
+        #endregion
+
+
+        #region Private Methods
+
+        
 
         /// <summary>
         /// Fill the public properties of this object.
@@ -121,7 +125,7 @@ namespace IRC.Helpdesk.Core
             this.ModelIndex = Convert(config.ModelColumn);
             this.InventoryNumberIndex = Convert(config.InventoryNumberColumn);
             this.UserIndex = Convert(config.UserColumn);
-            this.DelivaryDateIndex = Convert(config.DelivaryDateColumn);
+            this.DelivaryDateIndex = Convert(config.DeliveryDateColumn);
         }
 
         #endregion
