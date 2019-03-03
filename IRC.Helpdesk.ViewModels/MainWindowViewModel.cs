@@ -122,7 +122,18 @@ namespace IRC.Helpdesk.ViewModels
             get => this.AssetsTickets.Count;
         }
 
+        /// <summary>
+        /// Global comment value to be applied to all assets.
+        /// </summary>
+        public string GlobalComment { get; set; }
+
+        /// <summary>
+        /// Apply global comment for all assets.
+        /// </summary>
+        public bool ApplyGlobalComment { get; set; }
+
         public new PropertyChangedEventHandler PropertyChanged;
+
         #endregion
 
         #region Private Commands
@@ -321,6 +332,10 @@ namespace IRC.Helpdesk.ViewModels
         {
             foreach (var ticket in this.AssetsTickets)
             {
+                if (this.ApplyGlobalComment)
+                    ticket.Comment = this.GlobalComment;
+                else
+                    ticket.Comment = null;
                 MailService.Compose("helpdesk@rescue.org", "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
             }
         }

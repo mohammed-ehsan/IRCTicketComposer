@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Converters\BaseIMultiValueConverter.cs" />
     <Compile Include="Converters\BaseValueConverter.cs" />
+    <Compile Include="Converters\BoolToVisiblityCollapsedConverter.cs" />
     <Compile Include="Converters\DetailsMultiConverter.cs" />
     <Compile Include="Converters\SecondaryCategoryMultiConverter.cs" />
     <Compile Include="Dialogs\AboutDialog.xaml.cs">

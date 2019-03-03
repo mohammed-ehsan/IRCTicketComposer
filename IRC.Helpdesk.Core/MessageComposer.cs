@@ -9,16 +9,17 @@ namespace IRC.Helpdesk.Core
 {
     public class MessageComposer : IMessageComposer
     {
-        public const string Message = @"<P>Dear IT Team,<br><br>
-Please configure the following computer <b>‘{0}’</b> with asset tag <b>‘{1}’</b> to the user <b>‘{2}’</b>, <b>‘{3}’>/b>, expected delivery date <b>{4}</b>.</P>";
         #region Public Methods
 
         public string ComposeAssetTicket(AssetTicket asset)
         {
+            string commentBody = string.Empty;
+            if (!string.IsNullOrWhiteSpace(asset.Comment))
+                commentBody = string.Format(@"<br><b>Note:</b> {0}",asset.Comment);
             string message = string.Format(
                 @"<P>Dear IT Team,<br><br>
-Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b>, expected delivery date <b>{4}</b>.</P>"
-                , asset.Make, asset.Model, asset.InventoryNumber, asset.User, asset.DelivaryDate);
+Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b>, expected delivery date <b>{4}</b>{5}.</P>"
+                , asset.Make, asset.Model, asset.InventoryNumber, asset.User, asset.DelivaryDate,commentBody);
             return message;
         }
 

@@ -31,148 +31,96 @@
                                         Command="{Binding PasteCommand}"/>
     </Window.InputBindings>
     <Grid>
-        <TabControl>
-            <!--<TabItem Header="Support Ticket">
-                <Grid Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel >
-                        <TextBlock>Main Category</TextBlock>
-                        <ComboBox x:Name="MainCatElement"
-                ItemsSource="{Binding MainCategories}"
-                      SelectedItem="{Binding MainCategory}"
-                      Style="{StaticResource ComboBoxStyle}"></ComboBox>
-                        <TextBlock>Secondary Category</TextBlock>
-                        <ComboBox x:Name="SecCatElement"
-                SelectedItem="{Binding SecondaryCategory}"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding SecondaryCategories}">
-                        </ComboBox>
-                        <TextBlock>Details</TextBlock>
-                        <ComboBox SelectedItem="{Binding Details, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{StaticResource ComboBoxStyle}"
-                      ItemsSource="{Binding DetailsList}">
-                        </ComboBox>
-
-                    </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="10">
-                        <Image Source="/Images/IRC Logo.png"
-                   RenderOptions.BitmapScalingMode="HighQuality"
-                   Width="100"/>
-                        <TextBlock TextWrapping="Wrap">If there is no suitable option for your case,
-            write an email manually through button below.</TextBlock>
-                        --><!--<TextBlock>
-                <Run Foreground="#ffbf00"
-                     FontStyle="Italic"
-                     FontWeight="Bold">Developed By:</Run>
-            </TextBlock>--><!--
-                        <TextBlock HorizontalAlignment="Center">
-                <Run Foreground="#ffbf00"
-                     FontStyle="Italic"
-                     FontWeight="Bold">IRC IT Team</Run>
-                        </TextBlock>
-
-                    </StackPanel>
-                    <Grid Grid.Row="1">
-                        <Button Content="Create Email" 
-                VerticalAlignment="Top" 
-                Width="100"
-                Padding="5"
-                HorizontalAlignment="Center"
-                Style="{StaticResource ButtonStyle}"
-                    Command="{Binding ComposeTicketCommand}"/>
-                    </Grid>
-                    <Grid Grid.Row="1"
-              Grid.Column="1">
-                        <Button Style="{StaticResource ButtonStyle}"
-                    Command="{Binding NewHelpdeskMailCommand}">Help</Button>
-                    </Grid>
-                </Grid>
-            </TabItem>-->
-            <TabItem Header="Assets Tickets">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="20"/>
-                    </Grid.RowDefinitions>
-                    <ToolBarTray>
-                        <ToolBar>
-                            <Button ToolTip="Paste"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <ToolBarTray IsLocked="True">
+                <ToolBar>
+                    <Button ToolTip="Paste"
                                     Command="{Binding PasteCommand}">
-                                <Image Source="/Resources/Images/Paste.png"
+                        <Image Source="/Resources/Images/Paste.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                            <Button ToolTip="Delete selected asset"
+                    </Button>
+                    <Button ToolTip="Delete selected asset"
                                     Command="{Binding DeleteSelectedCommand}">
-                                <Image Source="/Resources/Images/remove_row.png"
+                        <Image Source="/Resources/Images/remove_row.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                            <Button ToolTip="Delete all"
+                    </Button>
+                    <Button ToolTip="Delete all"
                                 Command="{Binding ClearAllCommand}">
-                                <Image Source="/Resources/Images/remove_all.png"
+                        <Image Source="/Resources/Images/remove_all.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                        </ToolBar>
-                        <ToolBar>
-                            <Button ToolTip="Import from excel"
+                    </Button>
+                </ToolBar>
+
+                <ToolBar>
+                    <Button ToolTip="Import from excel"
                                 Command="{Binding SelectSourceFileCommand}">
-                                <Image Source="/Resources/Images/import_excel.png"
+                        <Image Source="/Resources/Images/import_excel.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                            <Button ToolTip="SendTickets"
+                    </Button>
+                    <Button ToolTip="SendTickets"
                                 Command="{Binding ComposeTicketCommand}">
-                                <Image Source="/Resources/Images/send_tickets.png"
+                        <Image Source="/Resources/Images/send_tickets.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                            <Button ToolTip="Configure excel"
+                    </Button>
+                    <Button ToolTip="Configure excel"
                                 Command="{Binding ConfigureCommand}">
-                                <Image Source="/Resources/Images/configure.png"
+                        <Image Source="/Resources/Images/configure.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                        </ToolBar>
-                        <ToolBar>
-                            <Button ToolTip="About"
+                    </Button>
+                </ToolBar>
+                <ToolBar>
+                    <Button ToolTip="About"
                                 Command="{Binding ShowAboutCommand}">
-                                <Image Source="/Resources/Images/about.png"
+                        <Image Source="/Resources/Images/about.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
-                            </Button>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <DataGrid ItemsSource="{Binding AssetsTickets}"
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <DataGrid ItemsSource="{Binding AssetsTickets}"
                               AutoGenerateColumns="False"
                               IsReadOnly="True"
                               SelectedItem="{Binding SelectedAsset}"
                               Grid.Row="1">
-                        <DataGrid.InputBindings>
-                            <KeyBinding Key="Delete"
+                <DataGrid.InputBindings>
+                    <KeyBinding Key="Delete"
                                         Command="{Binding DeleteSelectedCommand}"/>
-                            
-                        </DataGrid.InputBindings>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Make" Binding="{Binding Make}"/>
-                            <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
-                            <DataGridTextColumn Header="Invent. Numb." Binding="{Binding InventoryNumber}"/>
-                            <DataGridTextColumn Header="User" Binding="{Binding User}"/>
-                            <DataGridTextColumn Header="Delivary Date" Binding="{Binding DelivaryDate}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <StatusBar Grid.Row="2">
-                        <StatusBarItem>
-                            <TextBlock>
+
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Make" Binding="{Binding Make}"/>
+                    <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
+                    <DataGridTextColumn Header="Invent. Numb." Binding="{Binding InventoryNumber}"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding User}"/>
+                    <DataGridTextColumn Header="Delivary Date" Binding="{Binding DelivaryDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Grid.Row="2" Margin="5">
+                <CheckBox x:Name="CommentCheckbox"
+                          IsChecked="{Binding ApplyGlobalComment}"
+                          IsThreeState="False">Add Global Comment.</CheckBox>
+                <DockPanel LastChildFill="True"
+                           Visibility="{Binding ApplyGlobalComment,Converter={x:Static local:BoolToVisiblityCollapsedConverter.Instance}}">
+                    <TextBlock DockPanel.Dock="Left"
+                               Margin="3">Comment:</TextBlock>
+                    <TextBox DockPanel.Dock="Left"
+                             Margin="3"
+                             Text="{Binding GlobalComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+            </StackPanel>
+            <StatusBar Grid.Row="3">
+                <StatusBarItem>
+                    <TextBlock>
                                 <Run>Count:</Run>
                                 <Run Text="{Binding AssetsCount, Mode=OneWay}"/>
-                            </TextBlock>
-                        </StatusBarItem>
-                    </StatusBar>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                    </TextBlock>
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
     </Grid>
 </Window>

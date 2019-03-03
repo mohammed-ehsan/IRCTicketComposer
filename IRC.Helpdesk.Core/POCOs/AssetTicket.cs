@@ -18,6 +18,8 @@ namespace IRC.Helpdesk.Core.POCOs
 
         public string DelivaryDate { get; set; }
 
+        public string Comment { get; set; }
+
         #endregion
 
     }
