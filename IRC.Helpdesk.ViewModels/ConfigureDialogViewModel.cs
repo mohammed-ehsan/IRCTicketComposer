@@ -19,7 +19,7 @@ namespace IRC.Helpdesk.ViewModels
 
         public string User { get; set; }
 
-        public string DeliveryDate { get; set; }
+        public string Location { get; set; }
 
         public event EventHandler<DialogClosedEventArgs> Closed;
 
@@ -114,7 +114,7 @@ namespace IRC.Helpdesk.ViewModels
             this.Model = jsonConfig.ModelColumn;
             this.InventoryNumber = jsonConfig.InventoryNumberColumn;
             this.User = jsonConfig.UserColumn;
-            this.DeliveryDate = jsonConfig.DeliveryDateColumn;
+            this.Location = jsonConfig.LocationColumn;
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace IRC.Helpdesk.ViewModels
                 ModelColumn = this.Model,
                 InventoryNumberColumn = this.InventoryNumber,
                 UserColumn = this.User,
-                DeliveryDateColumn = this.DeliveryDate
+                LocationColumn = this.Location
             };
             return config;
         }
@@ -151,7 +151,7 @@ namespace IRC.Helpdesk.ViewModels
                 return false;
             if (string.IsNullOrWhiteSpace(this.User))
                 return false;
-            if (string.IsNullOrWhiteSpace(this.DeliveryDate))
+            if (string.IsNullOrWhiteSpace(this.Location))
                 return false;
             return true;
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace IRC.Helpdesk.Core.POCOs
 {
@@ -16,7 +17,9 @@ namespace IRC.Helpdesk.Core.POCOs
 
         public string User { get; set; }
 
-        public string DelivaryDate { get; set; }
+        public string Location { get; set; }
+
+        public DateTime DeliveryDate { get; set; } = DateTime.Now.AddDays(3);
 
         public string Comment { get; set; }
 

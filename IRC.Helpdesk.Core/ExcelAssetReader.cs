@@ -91,7 +91,7 @@ namespace IRC.Helpdesk.Core
                 Model = data.TryGetValue(this.configuration.ModelIndex -1),
                 InventoryNumber = data.TryGetValue(this.configuration.InventoryNumberIndex - 1),
                 User = data.TryGetValue(this.configuration.UserIndex - 1),
-                DelivaryDate = data.TryGetValue(this.configuration.DelivaryDateIndex -1)
+                Location = data.TryGetValue(this.configuration.LocationIndex -1)
             };
         }
 

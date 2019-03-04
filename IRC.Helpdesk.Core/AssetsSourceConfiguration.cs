@@ -13,7 +13,7 @@ namespace IRC.Helpdesk.Core
         public int ModelIndex { get; set; }
         public int InventoryNumberIndex { get; set; }
         public int UserIndex { get; set; }
-        public int DelivaryDateIndex { get; set; }
+        public int LocationIndex { get; set; }
 
         #endregion
 
@@ -112,8 +112,6 @@ namespace IRC.Helpdesk.Core
 
         #region Private Methods
 
-        
-
         /// <summary>
         /// Fill the public properties of this object.
         /// </summary>
@@ -125,7 +123,7 @@ namespace IRC.Helpdesk.Core
             this.ModelIndex = Convert(config.ModelColumn);
             this.InventoryNumberIndex = Convert(config.InventoryNumberColumn);
             this.UserIndex = Convert(config.UserColumn);
-            this.DelivaryDateIndex = Convert(config.DeliveryDateColumn);
+            this.LocationIndex = Convert(config.LocationColumn);
         }
 
         #endregion

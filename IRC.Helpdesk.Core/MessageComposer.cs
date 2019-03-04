@@ -18,8 +18,8 @@ namespace IRC.Helpdesk.Core
                 commentBody = string.Format(@"<br><b>Note:</b> {0}",asset.Comment);
             string message = string.Format(
                 @"<P>Dear IT Team,<br><br>
-Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b>, expected delivery date <b>{4}</b>{5}.</P>"
-                , asset.Make, asset.Model, asset.InventoryNumber, asset.User, asset.DelivaryDate,commentBody);
+Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b> in <b>‘{4}’</b>, expected delivery date <b>{5}</b>{6}</P>"
+                , asset.Make, asset.Model, asset.InventoryNumber, asset.User,asset.Location, asset.DeliveryDate.ToShortDateString(), commentBody);
             return message;
         }
 

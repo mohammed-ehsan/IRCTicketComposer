@@ -7,7 +7,7 @@
         int ModelIndex { get; set; }
         int InventoryNumberIndex { get; set; }
         int UserIndex { get; set; }
-        int DelivaryDateIndex { get; set; }
+        int LocationIndex { get; set; }
 
         void Update(JsonConfiguration configuration);
         void SaveChanges();

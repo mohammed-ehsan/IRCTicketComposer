@@ -14,7 +14,7 @@
 
         public string UserColumn { get; set; }
 
-        public string DeliveryDateColumn { get; set; }
+        public string LocationColumn { get; set; }
 
         #endregion  
     }

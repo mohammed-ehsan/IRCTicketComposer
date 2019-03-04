@@ -37,7 +37,7 @@
         <Label Grid.Row="2" Grid.Column="0">Model Column:</Label>
         <Label Grid.Row="3" Grid.Column="0">Inventory # Column:</Label>
         <Label Grid.Row="4" Grid.Column="0">User Column:</Label>
-        <Label Grid.Row="5" Grid.Column="0">Delivary Date Column:</Label>
+        <Label Grid.Row="5" Grid.Column="0">Location Column:</Label>
         <TextBox Grid.Row="0" Grid.Column="1" Width="40"
                  Style="{StaticResource TextboxStyle}"
                  Text="{Binding FirstRowIndex, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -55,7 +55,7 @@
                  Text="{Binding User, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <TextBox Grid.Row="5" Grid.Column="1" Width="40"
                  Style="{StaticResource TextboxStyle}"
-                 Text="{Binding DeliveryDate, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                 Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <StackPanel Grid.Row="6" 
                     Grid.ColumnSpan="2"
                     Orientation="Horizontal"

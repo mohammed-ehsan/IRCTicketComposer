@@ -84,9 +84,9 @@
             </ToolBarTray>
             <DataGrid ItemsSource="{Binding AssetsTickets}"
                               AutoGenerateColumns="False"
-                              IsReadOnly="True"
                               SelectedItem="{Binding SelectedAsset}"
-                              Grid.Row="1">
+                              Grid.Row="1"
+                              IsReadOnly="True">
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Delete"
                                         Command="{Binding DeleteSelectedCommand}"/>
@@ -96,8 +96,17 @@
                     <DataGridTextColumn Header="Make" Binding="{Binding Make}"/>
                     <DataGridTextColumn Header="Model" Binding="{Binding Model}"/>
                     <DataGridTextColumn Header="Invent. Numb." Binding="{Binding InventoryNumber}"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
                     <DataGridTextColumn Header="User" Binding="{Binding User}"/>
-                    <DataGridTextColumn Header="Delivary Date" Binding="{Binding DelivaryDate}"/>
+                    <DataGridTemplateColumn Header="Expec. Delivery Date"
+                                            IsReadOnly="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <ItemContainerTemplate>
+                                <DatePicker SelectedDate="{Binding DeliveryDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            />
+                            </ItemContainerTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Row="2" Margin="5">
