@@ -134,6 +134,7 @@ namespace IRC.Helpdesk.ViewModels
 
         public new PropertyChangedEventHandler PropertyChanged;
 
+        public ISettingsProvider SettingsProvider { get; set; }
         #endregion
 
         #region Private Commands
@@ -242,7 +243,8 @@ namespace IRC.Helpdesk.ViewModels
             IDialogService dialogService,
             IMessageComposer messageComposer,
             IAssetSource assetsSource,
-            IClipBoard clipboard)
+            IClipBoard clipboard,
+            ISettingsProvider settingsProvider)
         {
             this.CategoriesProvider = categoriesProvider;
             this.MailService = mailService;
@@ -251,6 +253,7 @@ namespace IRC.Helpdesk.ViewModels
             this.MessageComposer = messageComposer;
             this.AssetsSource = assetsSource;
             this.Clipboard = clipboard;
+            this.SettingsProvider = settingsProvider;
             this.AssetsTickets = new ObservableCollection<AssetTicket>();
             this.AssetsTickets.CollectionChanged += AssetsTickets_CollectionChanged;
         }
@@ -284,12 +287,12 @@ namespace IRC.Helpdesk.ViewModels
             if (!string.IsNullOrWhiteSpace(this.Details))
                 subject += " - " + this.Details;
             string message = this.MessageComposer.ComposeTicket(this.MainCategory, this.SecondaryCategory, this.Details);
-            MailService.Compose("helpdesk@rescue.org", subject, message);
+            MailService.Compose(SettingsProvider.GetSettings().To, subject, message);
         }
 
         public void NewHelpdeskMail()
         {
-            MailService.Compose("helpdesk@rescue.org", string.Empty, string.Empty);
+            MailService.Compose(SettingsProvider.GetSettings().To, string.Empty, string.Empty);
         }
 
         /// <summary>
@@ -336,7 +339,7 @@ namespace IRC.Helpdesk.ViewModels
                     ticket.Comment = this.GlobalComment;
                 else
                     ticket.Comment = null;
-                MailService.Compose("helpdesk@rescue.org", "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
+                MailService.Compose(SettingsProvider.GetSettings().To, "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
             }
         }
 

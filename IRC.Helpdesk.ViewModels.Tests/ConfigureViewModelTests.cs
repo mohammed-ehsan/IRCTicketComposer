@@ -31,7 +31,7 @@ namespace Tests
                     ModelColumn = "B",
                     InventoryNumberColumn = "C",
                     UserColumn = "D",
-                    DeliveryDateColumn = "E"
+                    LocationColumn = "E"
                 }
                 );
             var viewModel = new ConfigureDialogViewModel(assetsSourceConfig.Object, dialogMock.Object);

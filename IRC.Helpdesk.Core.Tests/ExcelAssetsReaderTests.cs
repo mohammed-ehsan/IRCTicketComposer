@@ -22,7 +22,7 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
-            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MakeIndex = 3, ModelIndex = 2, InventoryNumberIndex=3, UserIndex=4, DelivaryDateIndex=5 };
+            Config = new AssetsConfigurationSourceMock { FirstRow = 2, MakeIndex = 3, ModelIndex = 2, InventoryNumberIndex=3, UserIndex=4, LocationIndex=5 };
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
@@ -57,7 +57,7 @@ namespace Tests
             Assert.AreEqual(configuration.ModelIndex, 2);
             Assert.AreEqual(configuration.InventoryNumberIndex, 3);
             Assert.AreEqual(configuration.UserIndex, 4);
-            Assert.AreEqual(configuration.DelivaryDateIndex, 5);
+            Assert.AreEqual(configuration.LocationIndex, 5);
         }
 
         [TestCase("A", ExpectedResult =1)]

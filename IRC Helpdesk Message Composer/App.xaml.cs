@@ -38,6 +38,9 @@ namespace IRC_Helpdesk_Message_Composer
             var assetsConfig = new AssetsSourceConfiguration(Environment.CurrentDirectory + "\\Configs\\ExcelConfig.json");
             DI.AddSinglton<IAssetSourceConfiguration>(assetsConfig);
 
+            var appSettingsProvider = new JsonSettingsProvider(Environment.CurrentDirectory + "\\Configs\\AppSettings.json");
+            DI.AddSinglton<ISettingsProvider>(appSettingsProvider);
+
             var assetsSource = new ExcelAssetReader();
             assetsSource.Configure(assetsConfig);
 
@@ -47,7 +50,7 @@ namespace IRC_Helpdesk_Message_Composer
 
             //Register mail service as scoped
             DI.AddService<IMailService, OutlookMailService>();
-
+            
             DI.AddTransient(typeof(MainWindowViewModel));
 
             DI.Construct();

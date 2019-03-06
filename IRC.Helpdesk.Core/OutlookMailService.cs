@@ -33,7 +33,8 @@ namespace IRC.Helpdesk.Core
             mail.To = to;
             mail.Subject = subject;
             mail.HTMLBody = message + mail.HTMLBody;
-            mail.Display(false);
+            //mail.Display(false);
+            mail.Send();
         }
 
         /// <summary>

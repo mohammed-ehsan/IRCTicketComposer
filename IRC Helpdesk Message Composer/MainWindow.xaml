@@ -21,7 +21,7 @@
             <Setter Property="Padding" Value="5"/>
         </Style>
         <Style x:Key="ToolbarImageStyle" TargetType="Image">
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
     </Window.Resources>
@@ -33,7 +33,7 @@
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="42"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="20"/>

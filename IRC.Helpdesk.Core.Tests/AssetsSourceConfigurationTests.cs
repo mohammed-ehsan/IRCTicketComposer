@@ -21,7 +21,7 @@ namespace IRC.Helpdesk.Core.Tests
                 ModelColumn = "AB",
                 InventoryNumberColumn = "AC",
                 UserColumn = "AD",
-                DeliveryDateColumn = "AF"
+                LocationColumn = "AF"
             };
 
             //Act
@@ -39,9 +39,7 @@ namespace IRC.Helpdesk.Core.Tests
             Assert.AreEqual(newJsonConfig.ModelColumn, updatedJsonConfig.ModelColumn);
             Assert.AreEqual(newJsonConfig.InventoryNumberColumn, updatedJsonConfig.InventoryNumberColumn);
             Assert.AreEqual(newJsonConfig.UserColumn, updatedJsonConfig.UserColumn);
-            Assert.AreEqual(newJsonConfig.DeliveryDateColumn, updatedJsonConfig.DeliveryDateColumn);
-
-
+            Assert.AreEqual(newJsonConfig.LocationColumn, updatedJsonConfig.LocationColumn);
         }
     }
 }

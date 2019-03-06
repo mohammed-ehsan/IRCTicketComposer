@@ -11,7 +11,7 @@ namespace IRC.Helpdesk.Core.Tests
         public int ModelIndex { get; set; }
         public int InventoryNumberIndex { get; set; }
         public int UserIndex { get; set; }
-        public int DelivaryDateIndex { get; set; }
+        public int LocationIndex { get; set; }
 
         public JsonConfiguration GetJsonObject()
         {
