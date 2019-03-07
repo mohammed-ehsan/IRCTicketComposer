@@ -28,13 +28,27 @@ namespace IRC.Helpdesk.Core
         public void Compose(string to, string subject, string message)
         {
             var app = new Outlook.Application();
-            var mail = app.CreateItem(Outlook.OlItemType.olMailItem) as Outlook.MailItem;
+            Outlook.MailItem mail = null;
+            try
+            {
+                mail = app.CreateItem(Outlook.OlItemType.olMailItem) as Outlook.MailItem;
+            }
+            catch (Exception)
+            {
+                throw new OutlookException();
+            }
             var i = mail.GetInspector;
             mail.To = to;
             mail.Subject = subject;
             mail.HTMLBody = message + mail.HTMLBody;
-            //mail.Display(false);
-            mail.Send();
+            try
+            {
+                mail.Send();
+            }
+            catch (Exception)
+            {
+                throw new SendEmailException();
+            }
         }
 
         /// <summary>

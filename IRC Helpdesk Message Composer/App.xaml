@@ -5,7 +5,21 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                
+                <ResourceDictionary>
+                    <FontFamily x:Key="MainFont">pack://application;,,,/Resources/Fonts/#Merriweather</FontFamily>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                    </Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                    </Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                    </Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+                    </Style>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

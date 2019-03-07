@@ -11,14 +11,26 @@ namespace IRC.Helpdesk.Core
     {
         #region Public Methods
 
-        public string ComposeAssetTicket(AssetTicket asset)
+        public string ComposeKACEMSOfficeTicket(AssetTicket asset)
+        {
+            string commentBody = string.Empty;
+            if (!string.IsNullOrWhiteSpace(asset.Comment))
+                commentBody = string.Format(@"<br><b>Note:</b> {0}", asset.Comment);
+            string message = string.Format(
+                @"<P>Dear IT Team,<br><br>
+Please setup KACE and MS Office on computer asset number <b>‘{0}’</b>, Make <b>‘{1}’</b> and Model <b>‘{2}’</b>{3}.<br><br><br>Created By IRC Assets Setup Application<br>Regards,</P>"
+                , asset.InventoryNumber, asset.Make, asset.Model, commentBody);
+            return message;
+        }
+
+        public string ComposeSetupTicket(AssetTicket asset)
         {
             string commentBody = string.Empty;
             if (!string.IsNullOrWhiteSpace(asset.Comment))
                 commentBody = string.Format(@"<br><b>Note:</b> {0}",asset.Comment);
             string message = string.Format(
                 @"<P>Dear IT Team,<br><br>
-Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b> in <b>‘{4}’</b>, expected delivery date <b>{5}</b>{6}</P>"
+Please configure the following computer <b>‘{0} - {1}’</b> with asset tag <b>‘{2}’</b> to the user <b>‘{3}’</b> in <b>‘{4}’</b>, expected delivery date <b>{5}</b>.{6}<br><br>Created By IRC Assets Setup Application<br>Regards,</P>"
                 , asset.Make, asset.Model, asset.InventoryNumber, asset.User,asset.Location, asset.DeliveryDate.ToShortDateString(), commentBody);
             return message;
         }

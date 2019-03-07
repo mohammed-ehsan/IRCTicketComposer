@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IRC_Helpdesk_Message_Composer"
         mc:Ignorable="d"
-        Title="IRC HelpDesk Composer" MinHeight="300" Width="500"
+        Title="IRC HelpDesk Composer" MinHeight="350" Width="700"
         SizeToContent="Height">
     <Window.Resources>
         <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
@@ -63,10 +63,22 @@
                         <Image Source="/Resources/Images/import_excel.png"
                                        Style="{StaticResource ToolbarImageStyle}"/>
                     </Button>
-                    <Button ToolTip="SendTickets"
+                    <Button ToolTip="Send laptop setup tickets"
                                 Command="{Binding ComposeTicketCommand}">
-                        <Image Source="/Resources/Images/send_tickets.png"
-                                       Style="{StaticResource ToolbarImageStyle}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Images/send_tickets.png"
+                                           Style="{StaticResource ToolbarImageStyle}"/>
+                            <TextBlock VerticalAlignment="Bottom"
+                                       FontFamily="{StaticResource MainFont}">Setup</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button ToolTip="Send KACE and MS Office setup tickets"
+                                Command="{Binding SendAppsSetupCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Images/send_tickets.png"
+                                           Style="{StaticResource ToolbarImageStyle}"/>
+                            <TextBlock VerticalAlignment="Bottom">KACE &amp; MS Office</TextBlock>
+                        </StackPanel>
                     </Button>
                     <Button ToolTip="Configure excel"
                                 Command="{Binding ConfigureCommand}">
@@ -107,6 +119,7 @@
                             </ItemContainerTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridCheckBoxColumn Header="Sent Status" Binding="{Binding Sent}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Grid.Row="2" Margin="5">

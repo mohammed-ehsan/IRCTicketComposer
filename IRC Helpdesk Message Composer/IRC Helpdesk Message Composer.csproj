@@ -138,6 +138,7 @@
     </Compile>
     <Compile Include="Converters\BaseIMultiValueConverter.cs" />
     <Compile Include="Converters\BaseValueConverter.cs" />
+    <Compile Include="Converters\BoolToStatusConverter.cs" />
     <Compile Include="Converters\BoolToVisiblityCollapsedConverter.cs" />
     <Compile Include="Converters\DetailsMultiConverter.cs" />
     <Compile Include="Converters\SecondaryCategoryMultiConverter.cs" />
@@ -188,6 +189,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Fonts\Merriweather-Black.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-BlackItalic.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-Bold.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-BoldItalic.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-Italic.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-Light.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-LightItalic.ttf" />
+    <Resource Include="Resources\Fonts\Merriweather-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -257,6 +266,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\OFL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

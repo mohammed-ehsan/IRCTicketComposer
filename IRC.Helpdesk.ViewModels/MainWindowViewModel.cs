@@ -147,12 +147,23 @@ namespace IRC.Helpdesk.ViewModels
         private ICommand _deleteSelectedCommand;
         private ICommand _clearAllCommand;
         private ICommand _showAboutCommand;
+        private ICommand _sendAppsSetupCommand;
 
         public event EventHandler<DialogClosedEventArgs> Closed;
 
         #endregion
 
         #region Public Commands
+
+        public ICommand SendAppsSetupCommand
+        {
+            get {
+                if (this._sendAppsSetupCommand == null)
+                    this._sendAppsSetupCommand = new RelayCommand(this.SendAppsSetupTickets);
+                return _sendAppsSetupCommand;
+            }
+
+        }
 
         public ICommand ConfigureCommand
         {
@@ -333,13 +344,9 @@ namespace IRC.Helpdesk.ViewModels
         /// </summary>
         public void SubmitAssetsSetup()
         {
-            foreach (var ticket in this.AssetsTickets)
+            foreach (var item in this.AssetsTickets)
             {
-                if (this.ApplyGlobalComment)
-                    ticket.Comment = this.GlobalComment;
-                else
-                    ticket.Comment = null;
-                MailService.Compose(SettingsProvider.GetSettings().To, "Asset Setup", MessageComposer.ComposeAssetTicket(ticket));
+                sendTicket(item,"Computer Setup", MessageComposer.ComposeSetupTicket(item));
             }
         }
 
@@ -380,7 +387,7 @@ namespace IRC.Helpdesk.ViewModels
         /// </summary>
         public void Configure()
         {
-            DialogService.ShowDialog(new ConfigureDialogViewModel(DI.GetService<IAssetSourceConfiguration>(),this.DialogService));
+            DialogService.ShowDialog(new ConfigureDialogViewModel(DI.GetService<IAssetSourceConfiguration>(), this.DialogService));
         }
 
         /// <summary>
@@ -390,6 +397,44 @@ namespace IRC.Helpdesk.ViewModels
         {
             DialogService.ShowDialog(new AboutViewModel());
         }
+
+        public void SendAppsSetupTickets()
+        {
+            foreach (var item in this.AssetsTickets)
+            {
+                sendTicket(item, "KACE and MS Office Setup", MessageComposer.ComposeKACEMSOfficeTicket(item));
+            }
+        }
+        #endregion
+
+        #region Private Helpers
+
+        private void sendTicket(AssetTicket ticket, string subject, string message)
+        {
+            if (ticket.Sent)
+                return;
+            if (this.ApplyGlobalComment)
+                ticket.Comment = this.GlobalComment;
+            else
+                ticket.Comment = null;
+            try
+            {
+                MailService.Compose(SettingsProvider.GetSettings().To, subject, message);
+            }
+            catch (OutlookException)
+            {
+                this.DialogService.ShowDialog(new MessageDialogViewModel("Application Error", "Failed to access Outlook application, please check the application is installed and running."));
+                return;
+            }
+            catch (SendEmailException)
+            {
+                this.DialogService.ShowDialog(new MessageDialogViewModel("Email Error", "Failed to send email due to application being busy with other process, has open dialog, or has permission grant required."));
+                return;
+            }
+            ticket.Sent = true;
+
+        }
+
         #endregion
     }
 }

@@ -64,6 +64,9 @@ namespace IRC.Helpdesk.Core
                 var data = row.Split('\t');
                 assets.Add(CreateTicket(data));
             }
+            var last = assets.Last();
+            if (string.IsNullOrWhiteSpace(last.InventoryNumber))
+                assets.Remove(last);
             return assets;
         }
 

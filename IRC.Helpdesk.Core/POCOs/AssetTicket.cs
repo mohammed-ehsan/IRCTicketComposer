@@ -23,6 +23,8 @@ namespace IRC.Helpdesk.Core.POCOs
 
         public string Comment { get; set; }
 
+        public bool Sent { get; set; }
+
         #endregion
 
     }
