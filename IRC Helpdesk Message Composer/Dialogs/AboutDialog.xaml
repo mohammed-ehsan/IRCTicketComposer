@@ -20,7 +20,7 @@
                      FontSize="15"
                      FontWeight="Bold">IRC Helpdesk Message Composer</TextBlock>
             <TextBlock HorizontalAlignment="Center">
-                V0.9.0
+                V1.0.0
             </TextBlock>
             <TextBlock HorizontalAlignment="Center"
                        FontSize="15">
